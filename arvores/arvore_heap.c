@@ -42,14 +42,15 @@ void insert(int a[], int data , int *n){
 
     while (i != 0 && a[parent(i)] < a[i]){
 
-        swap(&a[parent(i)], &a[1]){
+        swap(&a[parent(i)], &a[i]);
             i = parent(i);
-
-        }
+        
 
     }
 
 }
+
+//move o item da posicao que esta para sua posicao mais adequada
 
 int main(){
 
