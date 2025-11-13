@@ -49,10 +49,6 @@ noArvore *busca(noArvore *raiz, int k){
 }
 
 
-    
-
-
-
 int main(){
 
     noArvore *raiz = NULL;
