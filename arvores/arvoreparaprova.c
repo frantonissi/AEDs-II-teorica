@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct{
+typedef struct noArvore{
     int valor;
     struct noArvore *right;
     struct noArvore *left;
@@ -57,9 +57,10 @@ noArvore *insert_Node(noArvore *raiz, noArvore *n){
         return n;
     }else if (raiz -> valor > n -> valor){
         raiz -> left = insert_Node(raiz -> left, n);
+        return raiz;
     }else{
         raiz -> right = insert_Node(raiz -> right, n);
-            return raiz;
+        return raiz;
     }
 }
 
