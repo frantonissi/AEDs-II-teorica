@@ -16,6 +16,7 @@ MinHeap *inicialização(int capacity){
     h -> harr = (int*)malloc(sizeof(int));
     h -> capacity = capacity;
     h -> heap_size = 0;
+    return h;
 
 }
 
@@ -61,11 +62,72 @@ void insert_MinHeap(MinHeap *h, int k){
 
 }
 
+int extractMin(MinHeap *h) {
+    if (h->heap_size <= 0) return -1; // Erro: Heap vazia
+    if (h->heap_size == 1) {
+        h->heap_size--;
+        return h->harr[0];
+    }
+
+    // 1. Salva o menor (Raiz)
+    int root = h->harr[0];
+
+    // 2. Coloca o último elemento na Raiz
+    h->harr[0] = h->harr[h->heap_size - 1];
+    h->heap_size--;
+
+    // 3. Heapify Down (Conserta descendo)
+    int i = 0;
+    while (left_Chield(i) < h->heap_size) {
+        
+        int menor = left_Chield(i); // Assume que a esquerda é menor
+
+        // Se direita existe E é menor que a esquerda, atualiza
+        if (right_Chield(i) < h->heap_size && h->harr[right_Chield(i)] < h->harr[left_Chield(i)]) {
+            menor = right_Chield(i);
+        }
+
+        // Se o Pai for maior que o Menor Filho, troca
+        if (h->harr[i] > h->harr[menor]) {
+            swap(&h->harr[i], &h->harr[menor]);
+            i = menor; // Continua descendo
+        } else {
+            break; // Pai achou o lugar certo
+        }
+    }
+
+    return root;
+}
+
     
 
-int main(){
+int main() {
+    printf("--- Teste do Min Heap ---\n");
 
-    MinHeap *h = inicialização(MAX_SIZE);
+    // Cria uma heap com capacidade para 11 elementos
+    MinHeap* h = inicialização(11);
 
+    // Inserindo valores fora de ordem
+    printf("Inserindo: 3, 2, 15, 5, 4, 45\n");
+    insert_MinHeap(h, 3);
+    insert_MinHeap(h, 2);
+    insert_MinHeap(h, 15);
+    insert_MinHeap(h, 5);
+    insert_MinHeap(h, 4);
+    insert_MinHeap(h, 45);
+
+    printf("\nAgora removendo (ExtractMin)...\n");
+
+    printf("Valores removidos: ");
+    // Removemos todos até esvaziar
+    while (h->heap_size > 0) {
+        printf("%d ", extractMin(h));
+    }
+    printf("\n");
+
+    // Limpa memória
+    free(h->harr);
+    free(h);
+    
     return 0;
 }
