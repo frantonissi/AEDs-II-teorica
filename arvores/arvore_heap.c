@@ -3,6 +3,22 @@
 
 #define MAX_SIZE 7
 
+typedef struct MinHeap {
+    int* harr;       // O array que armazena os elementos
+    int capacity;    // O tamanho máximo (MAX_SIZE)
+    int heap_size;   // O número atual de elementos
+} MinHeap;
+
+
+MinHeap *inicialização(int capacity){
+
+    MinHeap* h = (MinHeap*)malloc(sizeof(MinHeap));
+    h -> harr = (int*)malloc(sizeof(int));
+    h -> capacity = capacity;
+    h -> heap_size = 0;
+
+}
+
 int parent(int i){
 
     return (i - 1)/2;
@@ -27,33 +43,11 @@ void swap(int *x, int *y){
     *y = temp;
 }
 
-void insert(int a[], int data , int *n){
-
-    if(*n >= MAX_SIZE){
-
-        printf("Heap cheia\n");
-        return;
-
-    }
-    a[*n] = data;
-    *n = *n + 1;
-
-    int i = *n - 1;
-
-    while (i != 0 && a[parent(i)] < a[i]){
-
-        swap(&a[parent(i)], &a[i]);
-            i = parent(i);
-        
-
-    }
-
-}
-
-//move o item da posicao que esta para sua posicao mais adequada
+    
 
 int main(){
 
+    inicialização(MAX_SIZE);
 
     return 0;
 }
