@@ -43,11 +43,29 @@ void swap(int *x, int *y){
     *y = temp;
 }
 
+void insert_MinHeap(MinHeap *h, int k){
+
+    if (h -> heap_size == h -> capacity){
+        printf("\nOverflow: Could not insert Key\n");
+        return;
+    }
+    h -> heap_size++;
+    int i = h -> heap_size - 1;
+    h -> harr[i] = k;
+
+    if (i != 0 && h -> harr[parent(i)] > h -> harr[i]){
+        swap(&h->harr[i], &h->harr[parent(i)]);
+        i = parent(i);
+    }
+
+
+}
+
     
 
 int main(){
 
-    inicialização(MAX_SIZE);
+    MinHeap *h = inicialização(MAX_SIZE);
 
     return 0;
 }
