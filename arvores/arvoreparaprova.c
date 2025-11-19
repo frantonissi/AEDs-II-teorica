@@ -127,6 +127,38 @@ noArvore *remove_raiz(noArvore *r){
     return q;
 }
 
+noArvore *remove_no(noArvore *raiz, int valor)
+/*Encontra o nó (n).
+
+Encontra o pai dele.
+
+Chama a função difícil (remove_raiz) passando o n. Ela se vira para rearranjar os filhos do n e retorna o substituto.
+
+Se tinha pai, o pai aponta para o substituto.
+
+Se não tinha pai, o substituto vira a nova raiz global.*/
+{
+    noArvore *n = busca(raiz, valor);
+    if (n)
+    {
+        noArvore *pai = busca_pai(raiz, n);
+
+        //nessa daqui, verifica se o n tem pai, se ele tiver, ele vira a raiz da subarvore, é removido e o pai vai apontar para q
+        if (pai)
+        {
+            if (pai->right == n)
+                pai->right = remove_raiz(n);
+            else
+                pai->left = remove_raiz(n);
+        }
+        else
+        {
+            raiz = remove_raiz(n);
+        }
+    }
+    return raiz;
+}
+
 
 int main(){
 
