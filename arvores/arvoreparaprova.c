@@ -96,6 +96,38 @@ noArvore *search_Father(noArvore *raiz, noArvore *n){
 
 }
 
+noArvore *remove_raiz(noArvore *r){
+    //r: É a raiz atual (quem vai morrer).
+    //p: Vai servir como o "pai" do nó que vamos mover (importante para não perder referências).
+    //q: É o candidato a nova raiz.
+
+    noArvore *p = r;
+    // Se r -> left for diferente de NULL, q = r -> left, se nao, q recebe r
+    noArvore *q = r->left != NULL ? r->left : r; 
+
+    //A nova raiz (q) passa a ser simplesmente o filho da direita. Se a direita for nula, a árvore fica vazia. Simples assim.
+    if (q == r){
+        q = r -> right;
+    }else{
+        /*Estamos descendo tudo para a direita a partir do filho esquerdo da raiz.
+        p vai guardando quem é o pai do q.
+        q avança para a direita.
+        Quando o loop para, q é o nó mais à direita (o maior valor da esquerda). Ele é o "escolhido" para virar a nova raiz.*/
+        while(q -> right != NULL){
+            p = q; 
+            q = q->right;
+        }
+        if (p != r) //O escolhido não é filho direto da raiz(q)
+        {
+            p->right = q->left; //O p que era quem guardava a raiz q, adota o filho esquerdo de q
+            q->left = r->left;  //O Q que agora ta la em cima, vai adotar para a sua esquerda, quem já era a esquerda de r
+        }
+        q->right = r->right; //Agora que o q subiu para o trono, ele precisa assumir a subárvore da direita inteira que pertencia à raiz antiga (r).
+    }
+    return q;
+}
+
+
 int main(){
 
     noArvore *raiz = NULL;
