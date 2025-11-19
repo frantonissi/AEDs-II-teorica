@@ -128,6 +128,31 @@ noArvore *remove_raiz(noArvore *r){
 }
 
 
+<<<<<<< HEAD
+=======
+noArvore *remove_no(noArvore *raiz, int valor)
+{
+    noArvore *n = busca(raiz, valor);
+    if (n)
+    {
+        noArvore *pai = busca_pai(raiz, n);
+
+        if (pai)
+        {
+            if (pai->dir == n)
+                pai->dir = remove_raiz(n);
+            else
+                pai->esq = remove_raiz(n);
+        }
+        else
+        {
+            raiz = remove_raiz(n);
+        }
+    }
+    return raiz;
+}
+
+>>>>>>> 98cc11d (Refactor code structure for improved readability and maintainability)
 int main(){
 
     noArvore *raiz = NULL;
