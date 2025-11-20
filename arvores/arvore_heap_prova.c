@@ -58,6 +58,29 @@ void inserir_MAXheap(MAXheap_tree *h, int valor){
 
 int extracao_MAXheap (MAXheap_tree *h){
 
+    if (h -> tamanho_heap == 0){
+        return -1;
+    }
+
+    int raizquevaiserremovida = h -> harr[0];
+    h -> harr[0] = h -> harr[h -> tamanho_heap - 1];
+    h -> tamanho_heap--;
+
+    int i = 0;
+    while(filho_esquerda(i) < h -> tamanho_heap){
+    int maior = filho_esquerda(i);
     
+    if (filho_direita(i) < h -> tamanho_heap && h -> harr[filho_direita(i)] > h -> harr[filho_esquerda(i)]){
+        maior = filho_direita;
+    }
+
+    if ( h -> harr[i] < h -> harr[maior]){
+        troca(h -> harr[maior], h -> harr[i]);
+        i = maior;
+    }else{
+        break;
+    }
+}
+    return raizquevaiserremovida;
 
 }
