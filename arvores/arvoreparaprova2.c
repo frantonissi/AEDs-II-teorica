@@ -102,3 +102,50 @@ noArvore *busca_Pai (noArvore *raiz, noArvore *v){
     }
     
 }
+
+noArvore *remocao(noArvore *remover){
+    /*Nessa funcao, nosso objetivo é remover a raiz, principal ou de sub-arvores, primeiramente, a gente tem que ver
+    se a estrutura remover tem filhos a esquerda, se nao tiver, basicamente quem vai assumir o lugar dela é 
+    o filho a direita (q  = r -> right), se tiver filho a esquerda, nós temos que começar a ir para a direita
+    ate achar o mais a direita, depois nós colocamos o mais a direita no lugar do remover, e reatualizamos todos
+    os ponteiros*/
+
+    noArvore *paidosfilhosdoQ = remover;
+    noArvore *q;
+
+    if (remover->left != NULL){
+        q = remover -> left;
+    }else{
+        q = remover;
+    }
+
+    if (q == remover){
+        q = remover -> right;
+    }
+
+    while(q -> right != NULL){
+        paidosfilhosdoQ = q;
+        q = q -> right;
+
+    }
+    //se o paidosfilhosdoQ nao for diferente de remover, é porque nao desceu;
+
+    if (paidosfilhosdoQ != remover){
+        /*Aqui só vai funcionar se o  paidosfilhosdoQ for diferente do r, porque se ele for igual, quer dizer que o q é o a esquerda do remover
+        sendo assim, nao precisa ligar o pai do q ao seu filho da esquerda, e tambem, se pegar o paidosfilhosdoQ -> right = q -> left; da erro
+        pq vc vai fazer o paidosfilhosdoQ que é igual a remover receber o que o q apontava, o que da erro, e o q -> right = remover -> right; da
+        erro pq vc vai fazer o q -> right apontar para ele mesmo (já que o q é o remover -> right)
+*/
+        paidosfilhosdoQ -> right = q -> left;
+        q -> right = remover -> right;
+
+    }
+
+    //logo, só temos que consertar a parte direita da arvore:
+    q -> right = remover -> right;
+
+}
+
+    noArvore *remove_No (noArvore *raiz, int valor){
+        
+    }
