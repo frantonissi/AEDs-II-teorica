@@ -87,7 +87,8 @@ noArvore *busca (noArvore *raiz, int v){
 }
 
 noArvore *busca_Pai (noArvore *raiz, noArvore *v){
-    /*Nessa funcao, vamos buscar o pai do v, se esse pai existir, é porque a raiz nao aponta para NULL e tambem porque a raiz tem que ser igual a v  */
+    /*Nessa funcao, vamos buscar o pai do v, se esse pai existir, é porque a raiz nao aponta para NULL 
+    e tambem porque a raiz tem que ser igual a v  */
     if (raiz == NULL){
         return NULL;
     }
@@ -147,5 +148,30 @@ noArvore *remocao(noArvore *remover){
 }
 
     noArvore *remove_No (noArvore *raiz, int valor){
-        
+        noArvore *valoraser_Buscado = busca(raiz, valor);
+
+        if (valoraser_Buscado){
+            noArvore *pai = busca_Pai(raiz, valoraser_Buscado);
+                if (pai){
+                    if (pai -> right == valoraser_Buscado){
+                        pai -> right = remocao(valoraser_Buscado);
+                    }else{
+                        pai -> left = remocao(valoraser_Buscado);
+                    }
+                }else{
+                raiz = remocao(valoraser_Buscado);
+                } 
+        }
+        return raiz;
+    }
+
+    int main(){
+
+        noArvore *raiz = NULL;
+        noArvore *insercao_No = criacao(10);
+        raiz = insercao(raiz, insercao_No);
+
+        insercao_No = criacao(20);
+        raiz = insercao(raiz, insercao_No);
+
     }
