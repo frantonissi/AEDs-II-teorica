@@ -10,7 +10,7 @@ typedef struct MinHeap {
 } MinHeap;
 
 
-MinHeap *inicialização(int capacity){
+MinHeap *inicializacao(int capacity){
 
     MinHeap* h = (MinHeap*)malloc(sizeof(MinHeap));
     h -> harr = (int*)malloc(sizeof(int));
@@ -54,7 +54,7 @@ void insert_MinHeap(MinHeap *h, int k){
     int i = h -> heap_size - 1;
     h -> harr[i] = k;
 
-    if (i != 0 && h -> harr[parent(i)] > h -> harr[i]){
+    while (i != 0 && h -> harr[parent(i)] > h -> harr[i]){
         swap(&h->harr[i], &h->harr[parent(i)]);
         i = parent(i);
     }
@@ -105,7 +105,7 @@ int main() {
     printf("--- Teste do Min Heap ---\n");
 
     // Cria uma heap com capacidade para 11 elementos
-    MinHeap* h = inicialização(11);
+    MinHeap* h = inicializacao(11);
 
     // Inserindo valores fora de ordem
     printf("Inserindo: 3, 2, 15, 5, 4, 45\n");
