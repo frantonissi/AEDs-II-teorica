@@ -64,6 +64,8 @@ void inserir_MAXheap(MAXheap_tree *h, int valor){
 
 int extracao_MAXheap (MAXheap_tree *h){
 
+    /**/
+
     if (h -> tamanho_heap <= 0){
         return -1;
     }
