@@ -92,7 +92,7 @@ noArvore *busca_Pai (noArvore *raiz, noArvore *v){
     if (raiz == NULL){
         return NULL;
     }
-    if (raiz -> right != NULL && raiz -> right == v || raiz -> left != NULL && raiz -> left == v){
+    if ((raiz -> right != NULL && raiz -> right == v) || (raiz -> left != NULL && raiz -> left == v)){
         return raiz;
     }
 
@@ -112,16 +112,12 @@ noArvore *remocao(noArvore *remover){
     os ponteiros*/
 
     noArvore *paidosfilhosdoQ = remover;
-    noArvore *q;
+     noArvore *q = remover->left != NULL ? remover->left : remover; 
 
-    if (remover->left != NULL){
-        q = remover -> left;
-    }else{
-        q = remover;
-    }
 
     if (q == remover){
         q = remover -> right;
+        return q;
     }
 
     while(q -> right != NULL){
@@ -138,13 +134,13 @@ noArvore *remocao(noArvore *remover){
         erro pq vc vai fazer o q -> right apontar para ele mesmo (já que o q é o remover -> right)
 */
         paidosfilhosdoQ -> right = q -> left;
-        q -> right = remover -> right;
+        q -> left = remover -> left;
 
     }
 
     //logo, só temos que consertar a parte direita da arvore:
     q -> right = remover -> right;
-
+    return q;
 }
 
     noArvore *remove_No (noArvore *raiz, int valor){
