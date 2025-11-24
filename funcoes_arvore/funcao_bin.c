@@ -14,21 +14,7 @@ Arvore_bin *criacao(int valor){
     novo_no -> esquerda = NULL;
 }
 
-Arvore_bin *insercao(Arvore_bin *raiz, Arvore_bin *novo){
 
-    Arvore_bin *aux = raiz;
-
-    while(aux != NULL){
-
-        if(raiz -> valor > novo -> valor){
-            aux = raiz -> esquerda;
-        }else{
-           aux = raiz -> direita;
-    }
-}
-    aux = novo;
-    return novo;
-}
 
 Arvore_bin *insercao_r(Arvore_bin *raiz, Arvore_bin *novo){
 
@@ -44,6 +30,118 @@ Arvore_bin *insercao_r(Arvore_bin *raiz, Arvore_bin *novo){
     }
 
 }
+
+
+
+
+Arvore_bin *busca_r(Arvore_bin *raiz, int k){
+    if (raiz == NULL){
+        return NULL;
+    }
+
+    if (raiz -> valor == k){
+        return raiz;
+    }
+
+    if (raiz -> valor > k){
+        return busca_r(raiz -> esquerda, k);
+    }else{
+        return busca_r(raiz -> direita, k);
+    }
+}
+
+
+
+Arvore_bin *buscar_opaidoNO_r(Arvore_bin *raiz, Arvore_bin *no){
+    if (raiz == NULL){
+        return NULL;
+    }
+
+    if (raiz -> esquerda != NULL && raiz -> esquerda == no || raiz -> direita != NULL && raiz -> esquerda == no){
+        return raiz;
+    }
+
+    if (raiz -> valor > no -> valor){
+        return buscar_opaidoNO_r(raiz -> esquerda, no);
+    }else{
+        return buscar_opaidoNO_r(raiz -> direita, no);
+    }
+
+
+}
+
+Arvore_bin *remocao(Arvore_bin *raiz){
+    Arvore_bin *p = raiz;
+    Arvore_bin *q;
+
+    if (raiz == NULL){
+        return NULL;
+    }
+
+
+    if (raiz -> esquerda == NULL)
+        q = raiz;
+    if (q == raiz){
+        q = raiz -> direita;
+    }else{
+        q = raiz -> esquerda;
+    }
+
+    while (q -> direita != NULL){
+        q = p;
+        q = q -> direita;
+    }
+
+    if (p != raiz){
+        p -> direita = q -> esquerda;
+        q -> esquerda = raiz -> esquerda;
+    }
+
+     q -> direita = raiz -> direita;
+
+    return q;
+    
+}
+
+Arvore_bin *remocao_No(Arvore_bin *raiz, int valor){
+
+    Arvore_bin *no = busca_r(raiz, valor);
+    if (no){
+        Arvore_bin *p = buscar_opaidoNO_r(raiz, no);
+            if (p){
+            if (p -> direita == no){
+                p -> direita = remocao(no);
+            }else{
+                p -> esquerda = remocao(no);
+            }
+        }else{
+            raiz = remocao(no);
+        }
+    }
+    return raiz;
+}
+
+
+
+
+//Codigos errados: 
+
+/*Arvore_bin *insercao(Arvore_bin *raiz, Arvore_bin *novo){
+
+    Arvore_bin *aux = raiz;
+
+    while(aux != NULL){
+
+        if(raiz -> valor > novo -> valor){
+            aux = raiz -> esquerda;
+        }else{
+           aux = raiz -> direita;
+    }
+}
+    aux = novo;
+    return novo;
+}
+
 
 
 Arvore_bin *busca(Arvore_bin *raiz, int k){
@@ -63,32 +161,21 @@ Arvore_bin *busca(Arvore_bin *raiz, int k){
     return raiz;
 }
 
-Arvore_bin *busca_r(Arvore_bin *raiz, int k){
+
+Arvore_bin *buscar_opaidoNO(Arvore_bin *raiz, Arvore_bin *no){
     if (raiz == NULL){
         return NULL;
     }
 
-    if (raiz -> valor == k){
-        return raiz;
+    Arvore_bin *aux = raiz;
+
+    while (aux -> esquerda != NULL && aux -> esquerda != no || aux -> direita != NULL && aux -> esquerda != no){
+        if (raiz -> valor > no -> valor){
+            aux = raiz -> esquerda;
+        }else{
+            aux = raiz -> direita;
+        }
     }
 
-    if (raiz -> valor > k){
-        return busca_r(raiz -> esquerda, k);
-    }else{
-        return busca_r(raiz -> direita, k);
-    }
-}
-
-Arvore_bin *busca_pai(Arvore_bin *raiz, Arvore_bin *no){
-    if (raiz == NULL){
-        return NULL;
-    }
-}
-
-Arvore_bin *busca_pai_r(Arvore_bin *raiz, Arvore_bin *no){
-    if (raiz == NULL){
-        return NULL;
-    }
-
-    
-}
+    return raiz;
+}*/
